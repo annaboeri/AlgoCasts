@@ -8,6 +8,47 @@
 //   anagrams('RAIL! SAFETY!', 'fairy tales') --> True
 //   anagrams('Hi there', 'Bye there') --> False
 
-function anagrams(stringA, stringB) {}
+// /[^\w]/ regex replaces any non (^) alphanumeric char (\w)
+// word.replace(/[^\w]/g, '').toLowerCase();
+
+// This solutions uses 3 iterations
+function anagrams(stringA, stringB) {
+  const charMapA = mapString(stringA);
+  const charMapB = mapString(stringB);
+
+  if (Object.keys(charMapA).length !== Object.keys(charMapB).length) {
+    return false;
+  }
+
+  for (let char in charMapA) {
+    if (charMapA[char] !== charMapB[char]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function mapString(string) {
+  const charMap = {};
+  string.replace(/[^\w]/g, "").toLowerCase();
+
+  for (let char of string) {
+    charMap[char] = charMap[char]++ || 1;
+  }
+  return charMap;
+}
 
 module.exports = anagrams;
+
+function anagrams223(stringA, stringB) {
+  return cleanString(stringA) === cleanString(stringB);
+}
+
+function cleanString(str) {
+  return str
+    .replace(/[^\w]/g, "")
+    .toLowerCase()
+    .split("")
+    .sort()
+    .join("");
+}
