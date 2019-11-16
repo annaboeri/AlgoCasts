@@ -7,6 +7,12 @@ test('circular', () => {
   expect(typeof circular).toEqual('function');
 });
 
+test('circular handles empty linked lists', () => {
+  const l = new List();
+
+  expect(() => circular(l)).not.toThrow();
+});
+
 test('circular detects circular linked lists', () => {
   const l = new List();
   const a = new Node('a');

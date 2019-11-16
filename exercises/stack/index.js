@@ -10,6 +10,27 @@
 //   s.pop(); // returns 2
 //   s.pop(); // returns 1
 
-class Stack {}
+// declare constructor function to initialize an array
+// when the Stack class is instantiated
+// you can then use that internal array to manage
+// all the data that gets added and removed to the stack
+
+class Stack {
+  constructor() {
+    this.data = [];
+  }
+
+  push(record) {
+    this.data.push(record);
+  }
+
+  pop() {
+    return this.data.pop();
+  }
+
+  peek() {
+    return this.data[this.data.length - 1];
+  }
+}
 
 module.exports = Stack;
