@@ -1,0 +1,63 @@
+System Design
+
+Q: How would you design Twitter?
+
+High Level Notes
+- There is no right answer
+- Every interviewer will expect a different answer
+  - Ask your interviewier: is there an area you want me to focus on?
+  - Usually a good place to start is the data model/ how you would build out a db
+  - Twitter: how would you store users/tweets
+- Focus is usually on the data model
+- Don't mention specific technologies
+  - list out qualities of a framework you would need
+  - Ex: How it needs to render things, mobile friendly etc
+- Draw stuff
+  - Ex: Front end/ main UI/ erd diagrams
+- Talk ***
+  - Respond right away
+  - Respond with instant follow up question if needed
+
+
+General Strategy
+- Identify 2 Core Features
+  - draw out diagrams
+  - sketch basic ui
+  - For Twitter: Focus on Tweets and User Feed
+- Then think about the possible implementation
+  - Web Interface: What should happen when a user clicks on a tweet
+  - Sending req to backend server/ DB implementation: What fields should a tweet have?
+    - Tweet
+      - Author - with association to User
+      - Body - string with max char limit
+      - Timestamps
+    - User
+      - Name
+      - User details
+      - Tweets - association to Tweet
+      - Following - association to Users
+      - Followers - association to Users
+      - Starred Tweets - association to Tweet
+  - * Identify and Address Difficulties/ Challenges associated with those 2 features *****
+    - Tweeting
+      - What does a tweet look like in the DB?
+      - How to make the '#topic' and '@mention' systems?
+      - How to implement retweets?
+    - Feed
+      - How to show interesting tweets at the top of the feed?
+  - Solutions for scaling
+    - General strategies for scaling out problems in general
+    - * Caching
+      - cache requests from db
+      - user --> server --> database
+                  |
+                memory store (mem cache/redis)
+      - Ex: For a user, get list of tweets from db and run algoritm to cal top 10 tweets for Feed
+      - instead of going back to db to pull tweets and run expensive algorithm,
+      - send back stored list of tweets for feed to user
+    - * Deployment options
+      - Horizontal Scaling (use a load balancer):
+        - create a load balancer to assign request to one of a multitude of itentical
+                                 --> server
+        - user --> load balancer --> server --> database
+                                 --> server
